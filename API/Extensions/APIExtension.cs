@@ -20,10 +20,10 @@ namespace API.Extensions
             builder.Logging.ClearProviders();
 
             ApiHelper.ApiConfiguration = builder.Configuration.GetSection(ApiConfiguration.Key).Get<ApiConfiguration>();
-            builder.Services.AddDbContext<ModelDbContext>(options => options.UseSqlServer(ApiHelper.GetDefaultConnection(), b => b.MigrationsAssembly("API")));
+            builder.Services.AddDbContext<ECommerceDbContext >(options => options.UseSqlServer(ApiHelper.GetDefaultConnection() ?? throw new InvalidOperationException("Invalid connetion string"),b=>b.MigrationsAssembly("API")));
 
             ServiceProvider serviceProvider = builder.Services.BuildServiceProvider();
-            ModelDbContext modelContext = serviceProvider.GetService<ModelDbContext>();
+            ECommerceDbContext  modelContext = serviceProvider.GetService<ECommerceDbContext >();
             modelContext.Database.Migrate();
             DbInitializer.Initialize(modelContext);
         }

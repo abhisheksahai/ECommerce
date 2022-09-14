@@ -4,7 +4,7 @@ namespace DataAccess.Data
 {
     public class DbInitializer
     {
-        public static void Initialize(ModelDbContext modelContext)
+        public static void Initialize(ECommerceDbContext  modelContext)
         {
             if (!modelContext.Products.Any())
             {
