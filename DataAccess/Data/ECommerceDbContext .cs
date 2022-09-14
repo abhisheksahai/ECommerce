@@ -1,16 +1,10 @@
 ﻿using Microsoft.EntityFrameworkCore;
-using Microsoft.Extensions.Options;
 using Models.Entities;
 
 namespace DataAccess.Data
 {
     public class ECommerceDbContext : DbContext
     {
-        public ECommerceDbContext()
-        {
-
-        }
-
         public ECommerceDbContext(DbContextOptions<ECommerceDbContext> options) : base(options)
         {
         }
@@ -28,6 +22,6 @@ namespace DataAccess.Data
             base.OnModelCreating(modelBuilder);
         }
 
-        public virtual DbSet<Product> Products { get; set; }
+        public DbSet<Product> Products { get; set; }
     }
 }
