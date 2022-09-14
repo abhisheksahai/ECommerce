@@ -20,9 +20,9 @@ namespace API.Controllers
         #region "API"
 
         [HttpGet]
-        public ActionResult<List<Product>> GetProducts()
+        public async Task<ActionResult<IEnumerable<Product>>> GetProducts()
         {
-            var products = _uw.ProductRepo.GetAll();
+            var products = await _uw.ProductRepo.GetAll();
             if (products.Any())
             {
                 return Ok(products);
@@ -35,12 +35,12 @@ namespace API.Controllers
         }
 
         [HttpGet("{Id}")]
-        public ActionResult<Product> GetProduct(int Id)
+        public async Task<ActionResult<Product>> GetProduct(int Id)
         {
-            var product = _uw.ProductRepo.GetFirstOrDefault(prod => prod.Id == Id);
+            var product = await _uw.ProductRepo.GetFirstOrDefault(prod => prod.Id == Id);
             if (product != null)
             {
-                return Ok(product);
+                return product;
             }
             else
             {

@@ -26,7 +26,7 @@ namespace DataAccess.Repository
         /// </summary>
         /// <param name="includeProperties"></param>
         /// <returns></returns>
-        public IEnumerable<T> GetAll(Expression<Func<T, bool>>? filter = null, string? includeProperties = null)
+        public async Task<IEnumerable<T>> GetAll(Expression<Func<T, bool>>? filter = null, string? includeProperties = null)
         {
             IQueryable<T> query = dbSet;
             if (includeProperties != null)
@@ -40,10 +40,10 @@ namespace DataAccess.Repository
             {
                 query = query.Where(filter);
             }
-            return query.ToList();
+            return await query.ToListAsync();
         }
 
-        public T GetFirstOrDefault(Expression<Func<T, bool>> filter, string? includeProperties = null)
+        public async Task<T> GetFirstOrDefault(Expression<Func<T, bool>> filter, string? includeProperties = null)
         {
             IQueryable<T> query = dbSet;
             if (includeProperties != null)
@@ -54,7 +54,7 @@ namespace DataAccess.Repository
                 }
             }
             query = query.Where(filter);
-            return query.FirstOrDefault();
+            return await query.FirstOrDefaultAsync();
         }
 
         public void Remove(T entity)
