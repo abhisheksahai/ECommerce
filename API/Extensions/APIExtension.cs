@@ -3,6 +3,7 @@ using DataAccess.Data;
 using DataAccess.Repository.IRepository;
 using DataAccess.Repository;
 using Microsoft.EntityFrameworkCore;
+using API.MiddleWare;
 
 namespace API.Extensions
 {
@@ -36,6 +37,7 @@ namespace API.Extensions
         /// <param name="app"></param>
         public static void AddMiddleWare(this WebApplication app)
         {
+            app.UseMiddleware<ExceptionMiddleWare>();
             if (app.Environment.IsDevelopment())
             {
                 app.UseSwagger();
