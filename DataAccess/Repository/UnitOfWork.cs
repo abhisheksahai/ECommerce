@@ -5,9 +5,11 @@ namespace DataAccess.Repository
 {
     public class UnitOfWork : IUnitOfWork
     {
-        public IProductRepository ProductRepo { get; private set; }
-
         public ICategoryRepository CategoryRepo { get; private set; }
+
+        public ISubCategoryRepository SubCategoryRepo { get; private set; }
+
+        public IProductRepository ProductRepo { get; private set; }
 
         private ECommerceDbContext _db;
 
@@ -16,6 +18,7 @@ namespace DataAccess.Repository
             _db = db;
             ProductRepo = new ProductRepository(_db);
             CategoryRepo = new CategoryRepository(_db);
+            SubCategoryRepo = new SubCategoryRepository(_db);
         }
 
         public void Save()

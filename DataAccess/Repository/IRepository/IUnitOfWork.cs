@@ -6,6 +6,8 @@
 
         ICategoryRepository CategoryRepo { get; }
 
+        ISubCategoryRepository SubCategoryRepo { get; }
+
         void Save();
     }
 }
