@@ -22,9 +22,9 @@ namespace DataAccess.Data
             base.OnModelCreating(modelBuilder);
         }
 
-        public DbSet<Category> Category { get; set; }
+        public DbSet<Category> Categories { get; set; }
 
-        public DbSet<SubCategory> SubCategory { get; set; }
+        public DbSet<SubCategory> SubCategories { get; set; }
 
         public DbSet<Product> Products { get; set; }
     }
