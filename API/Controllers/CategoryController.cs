@@ -67,6 +67,11 @@ namespace API.Controllers
         [HttpPut]
         public ActionResult<Category> Edit(Category category)
         {
+            var categoryFromDb = _uw.CategoryRepo.GetFirstOrDefault(c => c.Id == category.Id).Result;
+            if (categoryFromDb == null)
+            {
+                return NotFound();
+            }
             if (ModelState.IsValid)
             {
                 _uw.CategoryRepo.Update(category);

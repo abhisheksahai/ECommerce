@@ -67,6 +67,11 @@ namespace API.Controllers
         [HttpPut]
         public ActionResult<SubCategory> Edit(SubCategory subCategory)
         {
+            var subCategoryFromDb = _uw.SubCategoryRepo.GetFirstOrDefault(c => c.Id == subCategory.Id).Result;
+            if (subCategoryFromDb == null)
+            {
+                return NotFound();
+            }
             if (ModelState.IsValid)
             {
                 _uw.SubCategoryRepo.Update(subCategory);
