@@ -23,12 +23,11 @@ namespace API.Extensions
             builder.Logging.ClearProviders();
 
             ApiHelper.ApiConfiguration = builder.Configuration.GetSection(ApiConfiguration.Key).Get<ApiConfiguration>();
-            builder.Services.AddDbContext<ECommerceDbContext>(options => options.UseSqlServer(ApiHelper.GetDefaultConnection() ?? throw new InvalidOperationException("Invalid default connetion string"), b => b.MigrationsAssembly("API")));
+            builder.Services.AddDbContext<ECommerceDbContext>(options => options.UseSqlServer(ApiHelper.GetDefaultConnection() ?? throw new InvalidOperationException("Invalid default connetion string"), b => b.MigrationsAssembly("DataAccess")));
             builder.Services.AddScoped<IUnitOfWork, UnitOfWork>();
             ServiceProvider serviceProvider = builder.Services.BuildServiceProvider();
             ECommerceDbContext modelContext = serviceProvider.GetService<ECommerceDbContext>();
             modelContext.Database.Migrate();
-            DbInitializer.Initialize(modelContext);
         }
 
         /// <summary>

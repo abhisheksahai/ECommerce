@@ -20,9 +20,9 @@ namespace DataAccess.Repository
                 producFromDb.Name = product.Name;
                 producFromDb.Description = product.Description;
                 producFromDb.Price = product.Price;
-                producFromDb.Type = product.Type;
-                producFromDb.Brand = product.Brand;
-                producFromDb.QuantityInStock = product.QuantityInStock;
+                producFromDb.CategoryId = product.CategoryId;
+                producFromDb.SubCategoryId = product.SubCategoryId;
+                producFromDb.Quantity = product.Quantity;
                 if (!string.IsNullOrEmpty(product.PictureUrl))
                 {
                     producFromDb.PictureUrl = product.PictureUrl;
