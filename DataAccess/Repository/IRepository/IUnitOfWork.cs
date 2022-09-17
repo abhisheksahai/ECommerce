@@ -4,6 +4,8 @@
     {
         IProductRepository ProductRepo { get; }
 
+        ICategoryRepository CategoryRepo { get; }
+
         void Save();
     }
 }

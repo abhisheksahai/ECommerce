@@ -7,13 +7,11 @@ namespace API.Controllers
     public class ProductsController : BaseController
     {
         private IUnitOfWork _uw;
-        private IWebHostEnvironment _whe;
         private ILogger<ProductsController> _logger;
 
-        public ProductsController(IUnitOfWork uw, IWebHostEnvironment whe, ILogger<ProductsController> logger)
+        public ProductsController(IUnitOfWork uw, ILogger<ProductsController> logger)
         {
             this._uw = uw ?? throw new ArgumentNullException(nameof(IUnitOfWork));
-            this._whe = whe ?? throw new ArgumentNullException(nameof(IWebHostEnvironment));
             this._logger = logger ?? throw new ArgumentNullException(nameof(logger));
         }
 

@@ -8,7 +8,7 @@ namespace DataAccess.Repository.IRepository
 
         Task<IEnumerable<T>> GetAll(Expression<Func<T, bool>>? filter = null, string? includeProperties = null);
 
-        void Add(T entity);
+        Task Add(T entity);
 
         void Remove(T entity);
 
