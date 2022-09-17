@@ -1,9 +1,9 @@
-﻿using API.Settings;
+﻿using API.MiddleWare;
+using API.Settings;
 using DataAccess.Data;
-using DataAccess.Repository.IRepository;
 using DataAccess.Repository;
+using DataAccess.Repository.IRepository;
 using Microsoft.EntityFrameworkCore;
-using API.MiddleWare;
 
 namespace API.Extensions
 {

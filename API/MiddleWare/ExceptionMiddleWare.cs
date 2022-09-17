@@ -16,6 +16,11 @@ namespace API.MiddleWare
             _env = env;
         }
 
+        /// <summary>
+        /// Name will always be InvokeAsync
+        /// </summary>
+        /// <param name="context"></param>
+        /// <returns></returns>
         public async Task InvokeAsync(HttpContext context)
         {
             try
