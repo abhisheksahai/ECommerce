@@ -4,9 +4,14 @@
     {
         public static ApiConfiguration ApiConfiguration { get; set; }
 
-        public static string GetDefaultConnection()
+        public static string GetECommerceConnectionString()
         {
-            return ApiConfiguration.DefaultConnection;
+            return ApiConfiguration.ECommerceConnectionString;
+        }
+
+        public static string GetFileUploadPath()
+        {
+            return ApiConfiguration.FileUploadPath;
         }
     }
 }
