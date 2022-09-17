@@ -3,7 +3,7 @@ import { toast } from "react-toastify";
 import { ierror } from "../models/ierror";
 
 axios.defaults.baseURL = "https://localhost:7075/api/";
-const sleep = () => new Promise((resolve) => setTimeout(resolve, 1000));
+const sleep = () => new Promise((resolve) => setTimeout(resolve, 500));
 
 const responseBody = (response: AxiosResponse) => response.data;
 

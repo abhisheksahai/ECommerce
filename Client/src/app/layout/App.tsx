@@ -10,6 +10,7 @@ import { Contact } from "../../features/contact/Contact";
 import { Home } from "../../features/home/Home";
 import { Header } from "./Header";
 import "react-toastify/dist/ReactToastify.css";
+import NotFound from "../errors/NotFound";
 
 function App() {
   const [darkMode, setDarkMode] = useState<boolean>(false);
@@ -39,6 +40,7 @@ function App() {
           <Route path="/contact" element={<Contact />} />
           <Route path="/catalog" element={<Catalog />} />
           <Route path="/catalog/:id" element={<ProductDetails />} />
+          <Route element={<NotFound />} />
         </Routes>
       </Container>
     </ThemeProvider>
