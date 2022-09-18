@@ -9,32 +9,26 @@ import AddIcon from "@mui/icons-material/Add";
 import Typography from "@mui/material/Typography";
 import { useState } from "react";
 import agent from "../../app/api/agent";
-import LoadingComponent from "../../app/layout/LoadingComponent";
 import axios from "axios";
 
 export default function UpsertProduct() {
   const [file, setFile] = useState("");
-  const [fileName, setFileName] = useState();
-  const [loading, setLoading] = useState(true);
 
   const handleSubmit = async (event: React.FormEvent<HTMLFormElement>) => {
     event.preventDefault();
     const formData = new FormData(event.currentTarget);
     formData.append("formFile", file);
     try {
-      const res = await axios.post(
-        "https://localhost:7075/api/Products/Upsert",
-        formData
-      );
+      await axios.post("https://localhost:7075/api/Products/Upsert", formData);
     } catch (ex) {
       console.log(ex);
+    } finally {
     }
   };
 
   const saveFile = (e: any) => {
     console.log(e.target.files[0]);
     setFile(e.target.files[0]);
-    setFileName(e.target.files[0].name);
   };
 
   return (
