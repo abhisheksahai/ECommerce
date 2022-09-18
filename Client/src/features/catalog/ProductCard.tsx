@@ -37,7 +37,7 @@ export function ProductCard({ product }: Props) {
             backgroundSize: "contain",
             bgcolor: "primary.light",
           }}
-          image={product.pictureUrl}
+          image={process.env.REACT_APP_APIBASEURL + product.pictureUrl}
           title={product.name}
         />
         <CardContent>
@@ -45,7 +45,7 @@ export function ProductCard({ product }: Props) {
             ${(product.price / 100).toFixed(2)}
           </Typography>
           <Typography variant="body2" color="text.secondary">
-            {product.brand} / {product.type}
+            {product.description}
           </Typography>
         </CardContent>
         <CardActions>

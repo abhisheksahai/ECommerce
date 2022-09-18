@@ -2,7 +2,7 @@ import axios, { AxiosError, AxiosResponse } from "axios";
 import { toast } from "react-toastify";
 import { ierror } from "../models/ierror";
 
-axios.defaults.baseURL = "https://localhost:7075/api/";
+axios.defaults.baseURL = `${process.env.REACT_APP_APIBASEURL}/api/`;
 const sleep = () => new Promise((resolve) => setTimeout(resolve, 500));
 
 const responseBody = (response: AxiosResponse) => response.data;
@@ -38,8 +38,8 @@ const requests = {
 };
 
 const Catalog = {
-  list: () => requests.get("Products/GetProducts"),
-  details: (id: number) => requests.get(`Products/GetProduct/${id}`),
+  list: () => requests.get("Products/Get"),
+  details: (id: number) => requests.get(`Products/Get/${id}`),
 };
 
 const TestErrors = {

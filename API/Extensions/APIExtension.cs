@@ -29,17 +29,6 @@ namespace API.Extensions
             ServiceProvider serviceProvider = builder.Services.BuildServiceProvider();
             ECommerceDbContext modelContext = serviceProvider.GetService<ECommerceDbContext>();
             modelContext.Database.Migrate();
-
-            builder.Services.AddCors(options =>
-            {
-                options.AddPolicy("PolicyClientApp", builder =>
-                {
-                    builder.WithOrigins("http://localhost:3000/")
-                    .WithMethods("GET", "POST", "PUT", "DELETE")
-                    .WithHeaders(HeaderNames.ContentType);
-                });
-            });
-
         }
 
         /// <summary>
@@ -54,9 +43,8 @@ namespace API.Extensions
                 app.UseSwagger();
                 app.UseSwaggerUI();
             }
-
-            app.UseCors("PolicyClientApp");
-            //app.UseCors(opt => opt.AllowAnyHeader().AllowAnyMethod().AllowAnyOrigin());
+            app.UseStaticFiles();
+            app.UseCors(opt => opt.AllowAnyHeader().AllowAnyMethod().AllowAnyOrigin());
 
             app.UseHttpsRedirection();
             app.UseAuthorization();

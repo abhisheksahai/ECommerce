@@ -25,7 +25,7 @@ namespace API.Controllers
         [HttpGet]
         public async Task<ActionResult<IEnumerable<Product>>> Get()
         {
-            var products = await _uw.ProductRepo.GetAll(includeProperties: "Category,SubCategory");
+            var products = await _uw.ProductRepo.GetAll();
             if (products.Any())
             {
                 return Ok(products);
@@ -40,7 +40,7 @@ namespace API.Controllers
         [HttpGet("{Id}")]
         public async Task<ActionResult<Product>> Get(int Id)
         {
-            var product = await _uw.ProductRepo.GetFirstOrDefault(prod => prod.Id == Id, includeProperties: "Category,SubCategory");
+            var product = await _uw.ProductRepo.GetFirstOrDefault(prod => prod.Id == Id);
             if (product != null)
             {
                 return product;

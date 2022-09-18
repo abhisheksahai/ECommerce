@@ -34,7 +34,7 @@ export function ProductDetails() {
     <Grid container spacing={6}>
       <Grid item xs={6}>
         <img
-          src={product.pictureUrl}
+          src={process.env.REACT_APP_APIBASEURL + product.pictureUrl}
           alt={product.name}
           style={{ width: "100%" }}
         ></img>
@@ -49,6 +49,10 @@ export function ProductDetails() {
           <Table>
             <TableBody>
               <TableRow>
+                <TableCell>Code</TableCell>
+                <TableCell>{product.code}</TableCell>
+              </TableRow>
+              <TableRow>
                 <TableCell>Name</TableCell>
                 <TableCell>{product.name}</TableCell>
               </TableRow>
@@ -57,16 +61,8 @@ export function ProductDetails() {
                 <TableCell>{product.description}</TableCell>
               </TableRow>
               <TableRow>
-                <TableCell>Type</TableCell>
-                <TableCell>{product.type}</TableCell>
-              </TableRow>
-              <TableRow>
-                <TableCell>Brand</TableCell>
-                <TableCell>{product.brand}</TableCell>
-              </TableRow>
-              <TableRow>
                 <TableCell>Quantity In Stock</TableCell>
-                <TableCell>{product.quantityInStock}</TableCell>
+                <TableCell>{product.quantity}</TableCell>
               </TableRow>
             </TableBody>
           </Table>
