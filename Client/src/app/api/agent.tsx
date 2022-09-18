@@ -3,13 +3,11 @@ import { toast } from "react-toastify";
 import { ierror } from "../models/ierror";
 
 axios.defaults.baseURL = `${process.env.REACT_APP_APIBASEURL}/api/`;
-const sleep = () => new Promise((resolve) => setTimeout(resolve, 500));
 
 const responseBody = (response: AxiosResponse) => response.data;
 
 axios.interceptors.response.use(
   async (response) => {
-    //await sleep();
     return response;
   },
   (error: AxiosError) => {
