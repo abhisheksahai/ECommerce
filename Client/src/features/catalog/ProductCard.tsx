@@ -18,7 +18,16 @@ interface Props {
 export function ProductCard({ product }: Props) {
   return (
     <>
-      <Card>
+      <Card
+        sx={{
+          backgroundColor:
+            product.quantity < 10
+              ? "red"
+              : product.quantity < 100
+              ? "orange"
+              : "green",
+        }}
+      >
         <CardHeader
           avatar={
             <Avatar sx={{ bgcolor: "secondary.main" }}>

@@ -9,7 +9,6 @@ import AddIcon from "@mui/icons-material/Add";
 import Typography from "@mui/material/Typography";
 import { useState } from "react";
 import agent from "../../app/api/agent";
-import axios from "axios";
 import { useNavigate } from "react-router-dom";
 
 export default function UpsertProduct() {
