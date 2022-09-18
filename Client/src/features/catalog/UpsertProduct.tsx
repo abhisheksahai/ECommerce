@@ -10,6 +10,7 @@ import Typography from "@mui/material/Typography";
 import { useState } from "react";
 import agent from "../../app/api/agent";
 import { useNavigate } from "react-router-dom";
+import { MemoizedSelectList } from "../../common/SelectList";
 
 export default function UpsertProduct() {
   const [file, setFile] = useState("");
@@ -122,6 +123,7 @@ export default function UpsertProduct() {
               autoComplete="subCategoryId"
             />
           </Grid>
+          
           <Grid item xs={12} sm={6}>
             <input
               type="file"
