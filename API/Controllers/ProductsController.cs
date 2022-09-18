@@ -1,17 +1,22 @@
-﻿using DataAccess.Repository.IRepository;
+﻿using API.Settings;
+using DataAccess.Repository.IRepository;
 using Microsoft.AspNetCore.Mvc;
 using Models.Entities;
+using Models.ViewModels;
+using Utility;
 
 namespace API.Controllers
 {
     public class ProductsController : BaseController
     {
         private IUnitOfWork _uw;
+        private IWebHostEnvironment _whe;
         private ILogger<ProductsController> _logger;
 
-        public ProductsController(IUnitOfWork uw, ILogger<ProductsController> logger)
+        public ProductsController(IUnitOfWork uw, IWebHostEnvironment whe, ILogger<ProductsController> logger)
         {
             this._uw = uw ?? throw new ArgumentNullException(nameof(IUnitOfWork));
+            this._whe = whe ?? throw new ArgumentNullException(nameof(IWebHostEnvironment));
             this._logger = logger ?? throw new ArgumentNullException(nameof(logger));
         }
 
@@ -20,7 +25,7 @@ namespace API.Controllers
         [HttpGet]
         public async Task<ActionResult<IEnumerable<Product>>> Get()
         {
-            var products = await _uw.ProductRepo.GetAll();
+            var products = await _uw.ProductRepo.GetAll(includeProperties: "Category,SubCategory");
             if (products.Any())
             {
                 return Ok(products);
@@ -35,7 +40,7 @@ namespace API.Controllers
         [HttpGet("{Id}")]
         public async Task<ActionResult<Product>> Get(int Id)
         {
-            var product = await _uw.ProductRepo.GetFirstOrDefault(prod => prod.Id == Id);
+            var product = await _uw.ProductRepo.GetFirstOrDefault(prod => prod.Id == Id, includeProperties: "Category,SubCategory");
             if (product != null)
             {
                 return product;
@@ -44,6 +49,43 @@ namespace API.Controllers
             {
                 _logger.LogError($"{nameof(Product)} with Id {Id} not found");
                 return base.NotFound($"{nameof(Product)} with Id {Id} not found");
+            }
+        }
+
+        [HttpPost]
+        public IActionResult Upsert(ProductVM productVM, IFormFile? file = null)
+        {
+            if (ModelState.IsValid)
+            {
+                productVM.ProdDetail.PictureUrl = FileUtility.UploadFile(_whe.WebRootPath, ApiHelper.GetFileUploadPath(), file, productVM.ProdDetail.PictureUrl);
+                if (productVM.ProdDetail.Id == 0)
+                {
+                    _uw.ProductRepo.Add(productVM.ProdDetail);
+                }
+                else
+                {
+                    _uw.ProductRepo.Update(productVM.ProdDetail);
+                }
+                _uw.Save();
+                return RedirectToAction("Index");
+            }
+            return Ok(productVM);
+        }
+
+        [HttpDelete]
+        public async Task<ActionResult> Delete(int? Id)
+        {
+            var productFromDb = await _uw.ProductRepo.GetFirstOrDefault(prod => prod.Id == Id);
+            if (productFromDb == null)
+            {
+                return base.NotFound($"{nameof(Product)} with Id {Id} not found");
+            }
+            else
+            {
+                FileUtility.DeleteFile(_whe.WebRootPath, productFromDb.PictureUrl);
+                _uw.ProductRepo.Remove(productFromDb);
+                _uw.Save();
+                return Ok($"{productFromDb.Name} deleted");
             }
         }
 
