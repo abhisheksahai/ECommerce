@@ -10,20 +10,21 @@ import Typography from "@mui/material/Typography";
 import { useState } from "react";
 import agent from "../../app/api/agent";
 import axios from "axios";
+import { useNavigate } from "react-router-dom";
 
 export default function UpsertProduct() {
   const [file, setFile] = useState("");
+  const navigation = useNavigate();
 
   const handleSubmit = async (event: React.FormEvent<HTMLFormElement>) => {
     event.preventDefault();
     const formData = new FormData(event.currentTarget);
     formData.append("formFile", file);
-    try {
-      await axios.post("https://localhost:7075/api/Products/Upsert", formData);
-    } catch (ex) {
-      console.log(ex);
-    } finally {
-    }
+    await agent.Catalog.addProduct(formData)
+      .then(() => {
+        navigation("/catalog");
+      })
+      .catch((error) => console.log(error));
   };
 
   const saveFile = (e: any) => {

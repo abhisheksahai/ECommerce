@@ -23,7 +23,6 @@ axios.interceptors.response.use(
       default:
         break;
     }
-
     return Promise.reject(error.response);
   }
 );
@@ -38,7 +37,7 @@ const requests = {
 const Catalog = {
   getProducts: () => requests.get("Products/Get"),
   getProductDetail: (id: number) => requests.get(`Products/Get/${id}`),
-  addProduct: (product: {}) => requests.post("Products/Upsert", product),
+  addProduct: (body: {}) => requests.post("Products/Upsert", body),
 };
 
 const TestErrors = {
