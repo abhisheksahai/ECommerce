@@ -4,7 +4,7 @@ namespace Utility
 {
     public static class FileUtility
     {
-        public static string UploadFile(string webRootPath, string uploadPath, IFormFile file, string imagePath)
+        public async static Task<string> UploadFile(string webRootPath, string uploadPath, IFormFile file, string imagePath)
         {
             if (file == null)
             {
@@ -23,7 +23,7 @@ namespace Utility
             var extension = Path.GetExtension(file.FileName);
             using (var fileStreams = new FileStream(Path.Combine(uploads, fileName + extension), FileMode.Create))
             {
-                file.CopyTo(fileStreams);
+                await file.CopyToAsync(fileStreams);
             }
             return $"\\{Path.Combine(uploadPath, fileName + extension)}";
         }

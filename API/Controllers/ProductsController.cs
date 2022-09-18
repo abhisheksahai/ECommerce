@@ -53,21 +53,20 @@ namespace API.Controllers
         }
 
         [HttpPost]
-        public IActionResult Upsert(ProductVM productVM, IFormFile? file = null)
+        public async Task<IActionResult> Upsert([FromForm] ProductVM productVM)
         {
             if (ModelState.IsValid)
             {
-                productVM.ProdDetail.PictureUrl = FileUtility.UploadFile(_whe.WebRootPath, ApiHelper.GetFileUploadPath(), file, productVM.ProdDetail.PictureUrl);
+                productVM.ProdDetail.PictureUrl = await FileUtility.UploadFile(_whe.WebRootPath, ApiHelper.GetFileUploadPath(), productVM.FormFile, productVM.ProdDetail.PictureUrl);
                 if (productVM.ProdDetail.Id == 0)
                 {
-                    _uw.ProductRepo.Add(productVM.ProdDetail);
+                    await _uw.ProductRepo.Add(productVM.ProdDetail);
                 }
                 else
                 {
                     _uw.ProductRepo.Update(productVM.ProdDetail);
                 }
                 _uw.Save();
-                return RedirectToAction("Index");
             }
             return Ok(productVM);
         }

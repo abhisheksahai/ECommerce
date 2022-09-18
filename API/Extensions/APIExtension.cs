@@ -4,6 +4,7 @@ using DataAccess.Data;
 using DataAccess.Repository;
 using DataAccess.Repository.IRepository;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.Net.Http.Headers;
 
 namespace API.Extensions
 {
@@ -28,6 +29,17 @@ namespace API.Extensions
             ServiceProvider serviceProvider = builder.Services.BuildServiceProvider();
             ECommerceDbContext modelContext = serviceProvider.GetService<ECommerceDbContext>();
             modelContext.Database.Migrate();
+
+            builder.Services.AddCors(options =>
+            {
+                options.AddPolicy("PolicyClientApp", builder =>
+                {
+                    builder.WithOrigins("http://localhost:3000/")
+                    .WithMethods("GET", "POST", "PUT", "DELETE")
+                    .WithHeaders(HeaderNames.ContentType);
+                });
+            });
+
         }
 
         /// <summary>
@@ -43,7 +55,8 @@ namespace API.Extensions
                 app.UseSwaggerUI();
             }
 
-            app.UseCors(opt => opt.AllowAnyHeader().AllowAnyMethod().AllowAnyOrigin());
+            app.UseCors("PolicyClientApp");
+            //app.UseCors(opt => opt.AllowAnyHeader().AllowAnyMethod().AllowAnyOrigin());
 
             app.UseHttpsRedirection();
             app.UseAuthorization();
