@@ -53,7 +53,7 @@ namespace API.Controllers
         }
 
         [HttpPost]
-        public async Task<IActionResult> Upsert([FromForm] ProductVM productVM)
+        public async Task<IActionResult> Upsert([FromForm] ProductUpsert productVM)
         {
             if (ModelState.IsValid)
             {
@@ -71,7 +71,6 @@ namespace API.Controllers
                     SubCategoryId = productVM.SubCategoryId,
                     PictureUrl = productVM.PictureUrl
                 };
-
                 if (productVM.Id == 0)
                 {
                     await _uw.ProductRepo.Add(product);

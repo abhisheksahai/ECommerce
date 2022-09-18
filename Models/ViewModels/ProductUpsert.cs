@@ -4,7 +4,7 @@ using System.ComponentModel.DataAnnotations;
 
 namespace Models.ViewModels
 {
-    public class ProductVM
+    public class ProductUpsert
     {
         [Key]
         public int Id { get; set; } = 0;
@@ -27,11 +27,9 @@ namespace Models.ViewModels
         [Display(Name = "Category")]
         public int CategoryId { get; set; }
 
-
         [Required]
         [Display(Name = "Sub Category")]
         public int SubCategoryId { get; set; }
-
 
         [ValidateNever]
         [Display(Name = "Image")]
