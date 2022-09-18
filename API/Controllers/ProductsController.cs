@@ -57,18 +57,33 @@ namespace API.Controllers
         {
             if (ModelState.IsValid)
             {
-                productVM.ProdDetail.PictureUrl = await FileUtility.UploadFile(_whe.WebRootPath, ApiHelper.GetFileUploadPath(), productVM.FormFile, productVM.ProdDetail.PictureUrl);
-                if (productVM.ProdDetail.Id == 0)
+                productVM.PictureUrl = await FileUtility.UploadFile(_whe.WebRootPath, ApiHelper.GetFileUploadPath(), productVM.FormFile, productVM.PictureUrl);
+
+                Product product = new()
                 {
-                    await _uw.ProductRepo.Add(productVM.ProdDetail);
+                    Id = productVM.Id,
+                    Code = productVM.Code,
+                    Name = productVM.Name,
+                    Quantity = productVM.Quantity,
+                    Price = productVM.Price,
+                    Description = productVM.Description,
+                    CategoryId = productVM.CategoryId,
+                    SubCategoryId = productVM.SubCategoryId,
+                    PictureUrl = productVM.PictureUrl
+                };
+
+                if (productVM.Id == 0)
+                {
+                    await _uw.ProductRepo.Add(product);
                 }
                 else
                 {
-                    _uw.ProductRepo.Update(productVM.ProdDetail);
+                    _uw.ProductRepo.Update(product);
                 }
                 _uw.Save();
+                return Ok(product);
             }
-            return Ok(productVM);
+            return BadRequest();
         }
 
         [HttpDelete]

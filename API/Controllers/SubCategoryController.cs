@@ -20,7 +20,7 @@ namespace API.Controllers
         [HttpGet]
         public async Task<ActionResult<IEnumerable<SubCategory>>> Get()
         {
-            var subCategories = await _uw.SubCategoryRepo.GetAll();
+            var subCategories = await _uw.SubCategoryRepo.GetAll(includeProperties: "Category");
             if (subCategories.Any())
             {
                 return Ok(subCategories);
