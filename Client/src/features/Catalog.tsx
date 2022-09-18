@@ -9,7 +9,7 @@ export function Catalog() {
   const [loading, setLoading] = useState(true);
 
   useEffect(() => {
-    agent.Catalog.list()
+    agent.Catalog.getProducts()
       .then((products) => setProducts(products))
       .catch((error) => console.log(error))
       .finally(() => setLoading(false));

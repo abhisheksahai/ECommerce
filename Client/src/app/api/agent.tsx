@@ -36,8 +36,9 @@ const requests = {
 };
 
 const Catalog = {
-  list: () => requests.get("Products/Get"),
-  details: (id: number) => requests.get(`Products/Get/${id}`),
+  getProducts: () => requests.get("Products/Get"),
+  getProductDetail: (id: number) => requests.get(`Products/Get/${id}`),
+  addProduct: (product: {}) => requests.post("Products/Upsert", product),
 };
 
 const TestErrors = {

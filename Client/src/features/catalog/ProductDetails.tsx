@@ -21,7 +21,7 @@ export function ProductDetails() {
   const [loading, setLoading] = useState(true);
 
   useEffect(() => {
-    agent.Catalog.details(parseInt(id!))
+    agent.Catalog.getProductDetail(parseInt(id!))
       .then((product) => setProduct(product))
       .catch((error) => console.log(error))
       .finally(() => setLoading(false));

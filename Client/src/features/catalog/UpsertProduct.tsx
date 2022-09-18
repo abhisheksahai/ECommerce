@@ -7,15 +7,34 @@ import Grid from "@mui/material/Grid";
 import Box from "@mui/material/Box";
 import AddIcon from "@mui/icons-material/Add";
 import Typography from "@mui/material/Typography";
+import { useState } from "react";
+import agent from "../../app/api/agent";
+import LoadingComponent from "../../app/layout/LoadingComponent";
+import axios from "axios";
 
 export default function UpsertProduct() {
-  const handleSubmit = (event: React.FormEvent<HTMLFormElement>) => {
+  const [file, setFile] = useState("");
+  const [fileName, setFileName] = useState();
+  const [loading, setLoading] = useState(true);
+
+  const handleSubmit = async (event: React.FormEvent<HTMLFormElement>) => {
     event.preventDefault();
-    const data = new FormData(event.currentTarget);
-    console.log({
-      quantity: data.get("quantity"),
-      price: data.get("price"),
-    });
+    const formData = new FormData(event.currentTarget);
+    formData.append("formFile", file);
+    try {
+      const res = await axios.post(
+        "https://localhost:7075/api/Products/Upsert",
+        formData
+      );
+    } catch (ex) {
+      console.log(ex);
+    }
+  };
+
+  const saveFile = (e: any) => {
+    console.log(e.target.files[0]);
+    setFile(e.target.files[0]);
+    setFileName(e.target.files[0].name);
   };
 
   return (
@@ -91,32 +110,30 @@ export default function UpsertProduct() {
             <TextField
               required
               fullWidth
-              name="category"
+              name="categoryId"
               label="Category"
-              type="category"
-              id="category"
-              autoComplete="category"
+              type="categoryId"
+              id="categoryId"
+              autoComplete="categoryId"
             />
           </Grid>
           <Grid item xs={12} sm={6}>
             <TextField
               required
               fullWidth
-              name="subcategory"
+              name="subCategoryId"
               label="SubCategory"
-              type="subcategory"
-              id="subcategory"
-              autoComplete="subcategory"
+              type="subCategoryId"
+              id="subCategoryId"
+              autoComplete="subCategoryId"
             />
           </Grid>
           <Grid item xs={12} sm={6}>
-            <TextField
-              fullWidth
+            <input
+              type="file"
               name="pictureurl"
-              label="Image"
-              type="pictureurl"
               id="pictureurl"
-              autoComplete="pictureurl"
+              onChange={saveFile}
             />
           </Grid>
         </Grid>
