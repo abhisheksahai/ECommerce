@@ -18,9 +18,9 @@ interface Props {
 }
 
 const midLinks = [
-  { title: "about", path: "/about" },
-  { title: "contact", path: "/contact" },
+  { title: "Add", path: "/add" },
   { title: "catalog", path: "/catalog" },
+  { title: "about", path: "/about" },
 ];
 
 const rightLinks = [

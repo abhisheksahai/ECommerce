@@ -6,11 +6,11 @@ import { ToastContainer } from "react-toastify";
 import { About } from "../../features/about/About";
 import { Catalog } from "../../features/Catalog";
 import { ProductDetails } from "../../features/catalog/ProductDetails";
-import { Contact } from "../../features/contact/Contact";
 import { Home } from "../../features/home/Home";
 import { Header } from "./Header";
 import "react-toastify/dist/ReactToastify.css";
 import NotFound from "../errors/NotFound";
+import UpsertProduct from "../../features/catalog/UpsertProduct";
 
 function App() {
   const [darkMode, setDarkMode] = useState<boolean>(false);
@@ -37,7 +37,7 @@ function App() {
         <Routes>
           <Route path="/" element={<Home />} />
           <Route path="/about" element={<About />} />
-          <Route path="/contact" element={<Contact />} />
+          <Route path="/add" element={<UpsertProduct />} />
           <Route path="/catalog" element={<Catalog />} />
           <Route path="/catalog/:id" element={<ProductDetails />} />
           <Route element={<NotFound />} />
