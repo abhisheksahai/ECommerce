@@ -3,14 +3,12 @@ import ReactDOM from "react-dom/client";
 import App from "./app/layout/App";
 import reportWebVitals from "./reportWebVitals";
 import { BrowserRouter } from "react-router-dom";
-import { configureStore } from "./app/store/configureStore";
 import { Provider } from "react-redux";
+import { store } from "./app/store/configureStore";
 
 const root = ReactDOM.createRoot(
   document.getElementById("root") as HTMLElement
 );
-
-const store = configureStore();
 
 root.render(
   <React.StrictMode>
