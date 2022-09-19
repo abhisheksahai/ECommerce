@@ -11,6 +11,7 @@ import { Header } from "./Header";
 import "react-toastify/dist/ReactToastify.css";
 import NotFound from "../errors/NotFound";
 import UpsertProduct from "../../features/catalog/UpsertProduct";
+import Counter from "../../features/counter/Counter";
 
 function App() {
   const [darkMode, setDarkMode] = useState<boolean>(false);
@@ -40,6 +41,7 @@ function App() {
           <Route path="/add" element={<UpsertProduct />} />
           <Route path="/catalog" element={<Catalog />} />
           <Route path="/catalog/:id" element={<ProductDetails />} />
+          <Route path="/counter" element={<Counter />} />
           <Route element={<NotFound />} />
         </Routes>
       </Container>
