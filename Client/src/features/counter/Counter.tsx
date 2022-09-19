@@ -2,7 +2,9 @@ import { Button, ButtonGroup, Typography } from "@mui/material";
 import { useDispatch, useSelector } from "react-redux";
 import {
   CounterState,
+  decrement,
   DECREMENT_COUNTER,
+  increment,
   INCREMENT_COUNTER,
 } from "./counterReducer";
 
@@ -17,16 +19,23 @@ export default function Counter() {
         <Button
           variant="contained"
           color="error"
-          onClick={() => dispatch({ type: DECREMENT_COUNTER })}
+          onClick={() => dispatch(increment())}
         >
           Decrement
         </Button>
         <Button
           variant="contained"
           color="primary"
-          onClick={() => dispatch({ type: INCREMENT_COUNTER })}
+          onClick={() => dispatch(decrement())}
         >
           Increment
+        </Button>
+        <Button
+          variant="contained"
+          color="primary"
+          onClick={() => dispatch(increment(10))}
+        >
+          Increment by 10
         </Button>
       </ButtonGroup>
     </>
