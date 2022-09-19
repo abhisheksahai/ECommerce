@@ -2,10 +2,6 @@ import { configureStore } from "@reduxjs/toolkit";
 import { TypedUseSelectorHook, useDispatch, useSelector } from "react-redux";
 import { counterSlice } from "../../features/counter/counterSlice";
 
-// export function configureStore() {
-//   return createStore(counterReducer);
-// }
-
 export const store = configureStore({
   reducer: {
     counter: counterSlice.reducer,
